@@ -1,0 +1,47 @@
+name: "Ex 1 Deployment (Dev)"
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Set Release Version from the github commit
+        id: release_version_step
+        run: |
+          echo "RELEASE_VERSION=$(date -u '+%Y.%m.%d.%H%M%S')" >> $GITHUB_ENV
+          echo "::set-output name=release_version::${{ env.RELEASE_VERSION }}"
+
+      - name: Create Release TXT file
+        run: |
+          echo ${{ env.RELEASE_VERSION }} >> release.txt
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
+        with:
+          tag_name: ${{ env.RELEASE_VERSION }}
+          release_name: ${{ env.RELEASE_VERSION }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./release.txt
+          asset_name: release.txt
+          asset_content_type: text/plain
+
+  dev:
+    runs-on: ubuntu-latest
+    environment: ex1-dev
+    steps:
+      - name: Deploy
+        run: |
+          echo "Deploying to ex1-dev"
