@@ -1,4 +1,4 @@
-name: "Ex 1 Deployment (Dev)"
+name: "Ex 1 Promote (Stage)"
 on:
   workflow_dispatch:
 
