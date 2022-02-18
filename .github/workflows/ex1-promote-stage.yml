@@ -40,7 +40,7 @@ jobs:
         with: 
           repository: ${{ github.repository }}
           tag: ${{ steps.get-release.outputs.tag_name }}
-          fileName: "readme.txt"
+          fileName: "*"
 
       - run: |
           ls -la
