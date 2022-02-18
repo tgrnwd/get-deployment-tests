@@ -31,6 +31,10 @@ jobs:
         with:
           commitSha: ${{ needs.get-deployment.outputs.sha }}
 
+      - run: | 
+          echo "${{ steps.get-release.outputs.tag_name }}"
+          echo "${{ steps.get-release.outputs.id }}"
+
       - name: Download release asset
         id: download-release-asset
         uses: dsaltares/fetch-gh-release-asset@master
