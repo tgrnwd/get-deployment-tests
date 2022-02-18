@@ -35,14 +35,12 @@ jobs:
           echo "${{ steps.get-release.outputs.tag_name }}"
           echo "${{ steps.get-release.outputs.id }}"
 
-      - name: Download release asset
-        id: download-release-asset
-        uses: dsaltares/fetch-gh-release-asset@master
-        with:
-          version: tags/${{ steps.get-release.outputs.tag_name }}
-          file: readme.txt
-          target: ./readme.txt
-          token: ${{ secrets.GITHUB_TOKEN  }}
+      - uses: robinraju/release-downloader@v1.3
+        name: download release asset
+        with: 
+          repository: ${{ github.repository }}
+          tag: ${{ steps.get-release.outputs.tag_name }}
+          fileName: "readme.txt"
 
       - run: |
           cat readme.txt
