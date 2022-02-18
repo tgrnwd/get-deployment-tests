@@ -1,0 +1,42 @@
+name: "Ex 1 Deployment (Dev)"
+on:
+  workflow_dispatch:
+
+jobs:
+  get-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: tgrnwd/get-deployment@main
+        id: get-deployment-action
+        with:
+          token: ${{ secrets.GITHUB_TOKEN  }}
+          environment: dev
+
+  stage:
+    runs-on: ubuntu-latest
+    environment: ex1-stage
+    needs: get-deployment
+    steps:
+
+      - uses: cardinalby/git-get-release-action@v1
+        id: get-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
+        with:
+          commitSha: ${{ needs.get-deployment.get-deployment-action.outputs.sha }}
+
+      - name: Download release asset
+        id: download-release-asset
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          version: ${{ steps.get-release.outputs.id }}
+          file: readme.txt
+          target: ./readme.txt
+          token: ${{ secrets.GITHUB_TOKEN  }}
+
+      - run: |
+          cat readme.txt
+
+      - name: Deploy
+        run: |
+          echo "Deploying to ex1-stage"
