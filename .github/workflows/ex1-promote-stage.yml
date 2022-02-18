@@ -20,10 +20,6 @@ jobs:
     environment: ex1-stage
     needs: get-deployment
     steps:
-      - run: | 
-          echo "${{ needs.get-deployment.outputs.ref }}"
-          echo "${{ needs.get-deployment.outputs.sha }}"
-
       - uses: cardinalby/git-get-release-action@v1
         id: get-release
         env:
@@ -31,19 +27,12 @@ jobs:
         with:
           commitSha: ${{ needs.get-deployment.outputs.sha }}
 
-      - run: | 
-          echo "${{ steps.get-release.outputs.tag_name }}"
-          echo "${{ steps.get-release.outputs.id }}"
-
       - uses: robinraju/release-downloader@v1.3
         name: download release asset
         with: 
           repository: ${{ github.repository }}
           tag: ${{ steps.get-release.outputs.tag_name }}
           fileName: "*"
-
-      - run: |
-          ls -la
 
       - run: |
           cat release.txt
