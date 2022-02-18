@@ -23,7 +23,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
         with:
-          commitSha: ${{ needs.get-deployment.get-deployment-action.outputs.sha }}
+          commitSha: ${{ needs.get-deployment.steps.get-deployment-action.outputs.sha }}
 
       - name: Download release asset
         id: download-release-asset
