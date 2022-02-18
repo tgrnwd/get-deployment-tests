@@ -18,7 +18,10 @@ jobs:
     needs: get-deployment
     steps:
       - run: | 
+          echo ${{ needs.get-deployment.outputs.deploymentID }}
+          echo ${{ needs.get-deployment.outputs.ref }}
           echo ${{ needs.get-deployment.outputs.sha }}
+          echo ${{ needs.get-deployment.steps.get-deployment-action.outputs.status }}
 
       - uses: cardinalby/git-get-release-action@v1
         id: get-release
@@ -27,14 +30,14 @@ jobs:
         with:
           commitSha: ${{ needs.get-deployment.outputs.sha }}
 
-      - name: Download release asset
-        id: download-release-asset
-        uses: dsaltares/fetch-gh-release-asset@master
-        with:
-          version: ${{ steps.get-release.outputs.id }}
-          file: readme.txt
-          target: ./readme.txt
-          token: ${{ secrets.GITHUB_TOKEN  }}
+      # - name: Download release asset
+      #   id: download-release-asset
+      #   uses: dsaltares/fetch-gh-release-asset@master
+      #   with:
+      #     version: ${{ steps.get-release.outputs.id }}
+      #     file: readme.txt
+      #     target: ./readme.txt
+      #     token: ${{ secrets.GITHUB_TOKEN  }}
 
       - run: |
           cat readme.txt
