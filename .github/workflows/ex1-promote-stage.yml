@@ -35,7 +35,7 @@ jobs:
         id: download-release-asset
         uses: dsaltares/fetch-gh-release-asset@master
         with:
-          version: ${{ steps.get-release.outputs.id }}
+          version: tags/${{ steps.get-release.outputs.tag_name }}
           file: readme.txt
           target: ./readme.txt
           token: ${{ secrets.GITHUB_TOKEN  }}
