@@ -43,8 +43,10 @@ jobs:
           fileName: "readme.txt"
 
       - run: |
+          ls -la
+
+      - run: |
           ls
-          cat readme.txt
 
       - name: Deploy
         run: |
