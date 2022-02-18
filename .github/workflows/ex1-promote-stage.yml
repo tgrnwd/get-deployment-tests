@@ -6,7 +6,7 @@ jobs:
   get-deployment:
     runs-on: ubuntu-latest
     steps:
-      - uses: tgrnwd/get-deployment@main
+      - uses: tgrnwd/get-deployment@v1
         id: get-deployment-action
         with:
           token: ${{ secrets.GITHUB_TOKEN  }}
