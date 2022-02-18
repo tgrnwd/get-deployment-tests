@@ -10,7 +10,7 @@ jobs:
         id: get-deployment-action
         with:
           token: ${{ secrets.GITHUB_TOKEN  }}
-          environment: dev
+          environment: ex1-dev
 
   stage:
     runs-on: ubuntu-latest
