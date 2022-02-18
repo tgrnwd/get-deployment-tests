@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       sha: ${{ steps.get-deployment.outputs.sha }}
-      ref: ${{ steps.get-deployment.outputs.sha }}
+      ref: ${{ steps.get-deployment.outputs.ref }}
     steps:
       - uses: tgrnwd/get-deployment@v1
         id: get-deployment-action
