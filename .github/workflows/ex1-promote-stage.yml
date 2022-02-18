@@ -17,6 +17,8 @@ jobs:
     environment: ex1-stage
     needs: get-deployment
     steps:
+      - run: | 
+          echo ${{ needs.get-deployment.steps.get-deployment-action.outputs.sha }}
 
       - uses: cardinalby/git-get-release-action@v1
         id: get-release
