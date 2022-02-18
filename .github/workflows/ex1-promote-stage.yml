@@ -18,14 +18,14 @@ jobs:
     needs: get-deployment
     steps:
       - run: | 
-          echo ${{ needs.get-deployment.steps.get-deployment-action.outputs.sha }}
+          echo ${{ needs.get-deployment.outputs.sha }}
 
       - uses: cardinalby/git-get-release-action@v1
         id: get-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
         with:
-          commitSha: ${{ needs.get-deployment.steps.get-deployment-action.outputs.sha }}
+          commitSha: ${{ needs.get-deployment.outputs.sha }}
 
       - name: Download release asset
         id: download-release-asset
