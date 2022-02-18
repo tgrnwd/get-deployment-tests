@@ -46,7 +46,7 @@ jobs:
           ls -la
 
       - run: |
-          ls
+          cat release.txt
 
       - name: Deploy
         run: |
