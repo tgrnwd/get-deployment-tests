@@ -21,8 +21,8 @@ jobs:
     needs: get-deployment
     steps:
       - run: | 
-          echo ${{ needs.get-deployment.outputs.ref }}
-          echo ${{ needs.get-deployment.outputs.sha }}
+          echo "${{ needs.get-deployment.outputs.ref }}"
+          echo "${{ needs.get-deployment.outputs.sha }}"
 
       - uses: cardinalby/git-get-release-action@v1
         id: get-release
