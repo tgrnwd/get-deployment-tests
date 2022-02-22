@@ -8,7 +8,7 @@ jobs:
 
   dev:
     runs-on: ubuntu-latest
-    environment: ex1-dev
+    environment: ex2-dev
     steps:
       - name: Download Release
         uses: robinraju/release-downloader@v1.3

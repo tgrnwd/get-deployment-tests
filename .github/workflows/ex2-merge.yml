@@ -38,11 +38,3 @@ jobs:
           asset_path: ./release.txt
           asset_name: release.txt
           asset_content_type: text/plain
-
-  dev:
-    runs-on: ubuntu-latest
-    environment: ex1-dev
-    steps:
-      - name: Deploy
-        run: |
-          echo "Deploying to ex1-dev"
