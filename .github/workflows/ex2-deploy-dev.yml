@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     environment: ex2-dev
     steps:
+      - name: Debug
+        run: | 
+          echo ${{ github.context.release.tag_name }}
+
       - name: Download Release
         uses: robinraju/release-downloader@v1.3
         with: 
