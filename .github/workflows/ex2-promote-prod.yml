@@ -15,14 +15,18 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN  }}
           environment: ex2-stage
 
-      - name: Debug
-        run: | 
-          echo ${{ toJSON(github) }}
+
   prod:
     runs-on: ubuntu-latest
     environment: ex2-prod
     needs: get-deployment
     steps:
+
+      - name: Debug
+        run: | 
+          echo ${{ toJSON(github) }}
+
+          
       - uses: cardinalby/git-get-release-action@v1
         id: get-release
         env:
