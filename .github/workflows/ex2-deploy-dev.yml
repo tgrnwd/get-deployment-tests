@@ -1,0 +1,26 @@
+name: "Ex 2 Deploy to Dev"
+on:
+  release:
+    types:
+      - published
+
+jobs:
+
+  dev:
+    runs-on: ubuntu-latest
+    environment: ex1-dev
+    steps:
+      - name: Download Release
+        uses: robinraju/release-downloader@v1.3
+        with: 
+          repository: ${{ github.repository }}
+          tag: ${{ github.context.release.tag_name }}
+          fileName: "*"
+      
+      - name: Release echo
+        run: |
+          cat release.txt
+
+      - name: Deploy
+        run: |
+          echo "Deploying to ex1-dev"
