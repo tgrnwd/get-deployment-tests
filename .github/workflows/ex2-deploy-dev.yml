@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Debug
         run: | 
-          echo ${{ github.context.release.tag_name }}
+          echo ${{ toJSON(github) }}
 
       - name: Download Release
         uses: robinraju/release-downloader@v1.3
