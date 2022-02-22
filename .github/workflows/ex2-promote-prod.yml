@@ -15,6 +15,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN  }}
           environment: ex2-stage
 
+      - name: Debug
+        run: | 
+          echo ${{ toJSON(github) }}
   prod:
     runs-on: ubuntu-latest
     environment: ex2-prod
