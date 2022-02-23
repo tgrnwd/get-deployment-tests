@@ -45,13 +45,16 @@ jobs:
         id: create_deployment_record
         with:
           route: POST /repos/${{ github.repository }}/deployments
-          body: ${{ toJSON( env.DEPLOYMENT_REQUEST_BODY ) }}
+          # body: ${{ toJSON( env.DEPLOYMENT_REQUEST_BODY ) }}
+          ref: ${{ needs.get-deployment.outputs.sha }}
+          auto_merge: false,
+          environment: "ex2-stage"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
-          DEPLOYMENT_REQUEST_BODY: |
-              "ref": ${{ needs.get-deployment.outputs.sha }},
-              "auto_merge": false,
-              "environment": "ex2-stage"
+          # DEPLOYMENT_REQUEST_BODY: |
+          #     "ref": ${{ needs.get-deployment.outputs.sha }},
+          #     "auto_merge": false,
+          #     "environment": "ex2-stage"
             
 
       - run: |
