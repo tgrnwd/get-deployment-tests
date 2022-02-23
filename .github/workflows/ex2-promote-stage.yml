@@ -47,7 +47,8 @@ jobs:
     steps:
 
       - run: |
-          echo ${{ github }}
+          echo ${{ toJSON(github) }}
+
       - uses: octokit/request-action@v2.x
         id: create_deployment_record
         with:
