@@ -49,11 +49,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
           DEPLOYMENT_REQUEST_BODY: |
-            {
               "ref": ${{ needs.get-deployment.outputs.sha }},
               "auto_merge": false,
               "environment": "ex2-stage"
-            }
+            
 
       - run: |
           echo ${{ fromJSON(steps.create_deployment_record.outputs.data) }}
