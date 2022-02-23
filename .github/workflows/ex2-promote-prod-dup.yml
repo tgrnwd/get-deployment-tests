@@ -63,4 +63,4 @@ jobs:
           status: ${{ job.status }}
           token: ${{ secrets.GITHUB_TOKEN }}
           env: ex2-prod
-          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          deployment_id: ${{ steps.deployment_start.outputs.deployment_id }}
