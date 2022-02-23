@@ -41,11 +41,14 @@ jobs:
         run: |
           echo "Deploying to ex2-stage"
 
+  set-deployment-status:
+    runs-on: ubuntu-latest
+    steps:
       - uses: octokit/request-action@v2.x
         id: create_deployment_record
         with:
           route: POST /repos/${{ github.repository }}/deployments
-          ref: ${{ needs.get-deployment.outputs.sha }}
+          ref: ${{ needs.get-deployment.outputs.ref }}
           auto_merge: false
           environment: "ex2-stage"
         env:
