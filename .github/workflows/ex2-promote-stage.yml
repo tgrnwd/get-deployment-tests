@@ -58,4 +58,4 @@ jobs:
             
 
       - run: |
-          echo ${{ steps.create_deployment_record.outputs.data }}
+          echo ${{ toJSON(steps.create_deployment_record.outputs.data) }}
