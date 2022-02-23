@@ -60,8 +60,6 @@ jobs:
         with:
           route: POST /repos/${{ github.repository }}/deployments/${{ fromJSON(steps.create_deployment_record.outputs.data).id }}/statuses
           state: ${{ job.status }}
+          log_url: 
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
-
-      - run: |
-          echo ${{ toJSON(steps.create_deployment_status_record.outputs.data) }}
