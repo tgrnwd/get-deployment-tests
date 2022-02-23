@@ -45,17 +45,19 @@ jobs:
         id: create_deployment_record
         with:
           route: POST /repos/${{ github.repository }}/deployments
-          # body: ${{ toJSON( env.DEPLOYMENT_REQUEST_BODY ) }}
           ref: ${{ needs.get-deployment.outputs.sha }}
           auto_merge: false
           environment: "ex2-stage"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
-          # DEPLOYMENT_REQUEST_BODY: |
-          #     "ref": ${{ needs.get-deployment.outputs.sha }},
-          #     "auto_merge": false,
-          #     "environment": "ex2-stage"
-            
+
+      - uses: octokit/request-action@v2.x
+        id: create_deployment_status_record
+        with:
+          route: POST /repos/${{ github.repository }}/deployments/${{ fromJSON(steps.create_deployment_record.outputs.data).id }}/statuses
+          state: ${{ job.status }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
 
       - run: |
-          echo ${{ toJSON(steps.create_deployment_record.outputs.data) }}
+          echo ${{ toJSON(steps.create_deployment_status_record.outputs.data) }}
