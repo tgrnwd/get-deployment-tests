@@ -43,6 +43,7 @@ jobs:
 
   set-deployment-status:
     runs-on: ubuntu-latest
+    needs: [ get-deployment, stage ]
     steps:
       - uses: octokit/request-action@v2.x
         id: create_deployment_record
