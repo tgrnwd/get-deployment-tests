@@ -47,7 +47,7 @@ jobs:
           route: POST /repos/${{ github.repository }}/deployments
           # body: ${{ toJSON( env.DEPLOYMENT_REQUEST_BODY ) }}
           ref: ${{ needs.get-deployment.outputs.sha }}
-          auto_merge: false,
+          auto_merge: false
           environment: "ex2-stage"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
