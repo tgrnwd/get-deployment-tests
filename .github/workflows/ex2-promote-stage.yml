@@ -19,11 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     environment: ex2-stage
     needs: get-deployment
-    env:
-      DEPLOYMENT_REQUEST_BODY: |
-        "ref": ${{ needs.get-deployment.outputs.sha }},
-        "auto_merge": false,
-        "environment": "ex2-stage"
     steps:
       - uses: cardinalby/git-get-release-action@v1
         id: get-release
@@ -49,10 +44,14 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: create_deployment_record
         with:
-          route: POST /repos/{owner}/{repo}/check-runs
-          owner: octokit
-          repo: request-action
+          route: POST /repos/${{ github.repository }}/deployments
           body: ${{ toJSON( env.DEPLOYMENT_REQUEST_BODY ) }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEPLOYMENT_REQUEST_BODY: |
+            {"ref": ${{ needs.get-deployment.outputs.sha }},
+            "auto_merge": false,
+            "environment": "ex2-stage"}
 
       - run: |
           echo ${{ steps.create_deployment_record }}
