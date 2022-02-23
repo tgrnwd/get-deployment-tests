@@ -46,8 +46,7 @@ jobs:
     needs: [ get-deployment, stage ]
     steps:
 
-      - run: |
-          echo ${{ github }}
+      - run: env
 
       - uses: octokit/request-action@v2.x
         id: create_deployment_record
