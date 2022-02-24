@@ -22,11 +22,6 @@ jobs:
     needs: get-deployment
     steps:
 
-      - name: Debug
-        run: | 
-          echo ${{ toJSON(github) }}
-
-          
       - uses: cardinalby/git-get-release-action@v1
         id: get-release
         env:
