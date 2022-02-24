@@ -45,7 +45,7 @@ jobs:
 
   set-deployment-status:
     runs-on: ubuntu-latest
-    needs: [ get-deployment, stage ]
+    needs: [ get-deployment, prod ]
     steps:
 
       - run: env
@@ -56,7 +56,7 @@ jobs:
           route: POST /repos/${{ github.repository }}/deployments
           ref: ${{ needs.get-deployment.outputs.ref }}
           auto_merge: false
-          environment: "stage"
+          environment: "prod"
         env:
           GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
 
