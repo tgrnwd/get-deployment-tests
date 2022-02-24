@@ -42,3 +42,29 @@ jobs:
       - name: Deploy
         run: |
           echo "Deploying to prod"
+
+  set-deployment-status:
+    runs-on: ubuntu-latest
+    needs: [ get-deployment, stage ]
+    steps:
+
+      - run: env
+
+      - uses: octokit/request-action@v2.x
+        id: create_deployment_record
+        with:
+          route: POST /repos/${{ github.repository }}/deployments
+          ref: ${{ needs.get-deployment.outputs.ref }}
+          auto_merge: false
+          environment: "stage"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
+
+      - uses: octokit/request-action@v2.x
+        id: create_deployment_status_record
+        with:
+          route: POST /repos/${{ github.repository }}/deployments/${{ fromJSON(steps.create_deployment_record.outputs.data).id }}/statuses
+          state: ${{ job.status }}
+          # log_url: 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_RELEASE_TOKEN }}
