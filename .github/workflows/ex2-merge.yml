@@ -1,4 +1,4 @@
-name: "Ex 2 Release and Version (merge)"
+name: "Create Release on Merge"
 on:
   workflow_dispatch:
 

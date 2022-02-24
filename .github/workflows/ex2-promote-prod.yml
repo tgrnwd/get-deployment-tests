@@ -1,4 +1,4 @@
-name: "Ex 2 Promote (Prod)"
+name: "Promote to Prod"
 on:
   workflow_dispatch:
 
@@ -13,12 +13,12 @@ jobs:
         id: get-deployment-action
         with:
           token: ${{ secrets.GITHUB_TOKEN  }}
-          environment: ex2-stage
+          environment: stage
 
 
   prod:
     runs-on: ubuntu-latest
-    environment: ex2-prod
+    environment: prod
     needs: get-deployment
     steps:
 
@@ -46,4 +46,4 @@ jobs:
 
       - name: Deploy
         run: |
-          echo "Deploying to ex2-prod"
+          echo "Deploying to prod"
